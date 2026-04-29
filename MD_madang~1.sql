@@ -1,0 +1,12 @@
+--select bookname from book where bookid = '1';
+--select bookname from book where price >= 20000;
+--select sum(saleprice) from customer, orders where name = '박지성' and customer.custid=orders.custid;
+--select count(*) from customer, orders where name = '박지성' and customer.custid=orders.custid group by orders.custid;
+
+--select count(*) from book;
+--select count(distinct publisher) from book;
+--select name, address from customer;
+--select orderid from orders where orderdate between '25/07/04' and '25/07/07';
+--select orderid from orders where not orderdate between '25/07/04' and '25/07/07';
+--select name, address from customer where name like '김%';
+--select name, address from customer where name like '김%아';
