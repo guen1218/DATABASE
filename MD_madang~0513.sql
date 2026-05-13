@@ -37,3 +37,11 @@ select 이름 from 고객 where 고객번호 in (select 고객번호 from 예약
 -- 상관부속질의
 select 이름 from 고객 where exists (select * from 예약 where 예약.고객번호 = 고객.고객번호);
 select 영화제목, 가격 from 상영관 s1 where 가격 > (select avg(가격) from 상영관 s2 where s1.극장번호 = s2.극장번호);
+select 극장이름 from 극장 where 5 <= (select count(*) from 예약 where 극장.극장번호 = 예약.극장번호);
+select 이름 from 고객 where exists (select * from 예약 where 좌석번호 = 'A1' and 고객.고객번호 = 예약.고객번호);
+select 영화제목 from 상영관 where not exists (select * from 예약 where 예약.상영관번호 = 상영관.상영관번호);
+select 고객번호, 날짜 from 예약 y1 where exists (select * from 예약 y2 where y1.고객번호 = y2.고객번호 and y1.날짜 = y2.날짜 and y1.좌석번호 <> y2.좌석번호);
+select 극장이름 from 극장 where not exists (select * from 상영관 where 상영관.극장번호 = 극장.극장번호 and 가격 < 10000);
+select 이름 from 고객 where 고객번호 in (select 고객번호 from 예약 y1 where y1.고객번호 = 고객.고객번호 and exists(select * from 예약 y2 where y1.극장번호 <> y2.극장번호 and y1.고객번호 = y2.고객번호));
+select 영화제목 from 상영관 s1 where 좌석수 = (select max(좌석수) from 상영관 s2 where s1.극장번호 = s2.극장번호);
+select 이름 from 고객 where 고객번호 in (select 고객번호 from 예약 where 날짜 = (select max(날짜) from 예약));
