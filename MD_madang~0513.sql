@@ -23,7 +23,17 @@ select y.고객번호, s.영화제목 from 예약 y join 상영관 s on y.상영
 select k.이름, count(*) as "총 예약 횟수" from 예약 y join 극장 g on g.극장번호 = y.극장번호 join 상영관 s on s.상영관번호 = y.상영관번호 and s.극장번호 = y.극장번호 join 고객 k on k.고객번호 = y.고객번호 group by k.이름;
 
 -- 부속질의
-
+select 극장번호 from 예약 group by 극장번호 having count(*) = (select max(count(*)) from 예약 group by 극장번호);
+select 이름, 주소 from 고객 where 고객번호 in (select 고객번호 from 예약);
+select 극장이름 from 극장 where 극장번호 in (select 극장번호 from 상영관 group by 극장번호 having count(*) >= 3);
+select 영화제목, 가격 from 상영관 where 가격 >= (select avg(가격) from 상영관);
+select 이름 from 고객 where 고객번호 not in (select 고객번호 from 예약);
+select 극장이름 from 극장 where 극장번호 not in (select 극장번호 from 예약);
+select 고객번호 from 예약 group by 고객번호 having count(*) > (select avg(count(*)) from 예약 group by 고객번호);
+select 극장이름 from 극장 where 극장번호 in (select 극장번호 from 상영관 where 좌석수 = (select min(좌석수) from 상영관));
+select 영화제목 from 상영관 where 상영관번호 in (select 상영관번호 from 예약 where 날짜 = '2024-01-01');
+select 이름 from 고객 where 고객번호 in (select 고객번호 from 예약 group by 고객번호 having count(*) >= 2);
 
 -- 상관부속질의
-
+select 이름 from 고객 where exists (select * from 예약 where 예약.고객번호 = 고객.고객번호);
+select 영화제목, 가격 from 상영관 s1 where 가격 > (select avg(가격) from 상영관 s2 where s1.극장번호 = s2.극장번호);
