@@ -18,6 +18,9 @@ select g.극장이름, s.영화제목, k.이름, 좌석번호 from 예약 y join
 select 상영관.영화제목, count(*) as "총 예약 수" from 상영관 join 예약 on 상영관.극장번호 = 예약.극장번호 and 상영관.상영관번호 = 예약.상영관번호 group by 영화제목;
 select s.영화제목, s.가격 from 상영관 s join 극장 g on g.극장번호 = s.극장번호 where g.위치 = '서울';
 select 고객.이름 from 고객 left join 예약 on 고객.고객번호 = 예약.고객번호 where 예약.고객번호 is NULL;
+select g.극장이름, count(*) as "총 예약 횟수" from 예약 y join 극장 g on g.극장번호 = y.극장번호 join 상영관 s on s.극장번호 = y.극장번호 and s.상영관번호 = y.상영관번호 group by g.극장이름;
+select y.고객번호, s.영화제목 from 예약 y join 상영관 s on y.상영관번호 = s.상영관번호 and y.극장번호 = s.극장번호 where s.가격 >= 15000 group by y.고객번호, s.영화제목;
+select k.이름, count(*) as "총 예약 횟수" from 예약 y join 극장 g on g.극장번호 = y.극장번호 join 상영관 s on s.상영관번호 = y.상영관번호 and s.극장번호 = y.극장번호 join 고객 k on k.고객번호 = y.고객번호 group by k.이름;
 
 -- 부속질의
 
