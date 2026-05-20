@@ -24,3 +24,5 @@ select pname from passenger where pcity in ('서울시 강남구', '서울시 �
 -- 조인질의
 select p.pname as "승객 이름", b.fid from passenger p join booking b on p.pid = b.pid;
 select a.aname as "여행사 이름", count(a.aname) as "예약 건수" from agency a join booking b on a.aid = b.aid group by a.aname;
+select p.pname, f.src as "출발지", f.dest as "목적지" from booking b join passenger p on p.pid = b.pid join flight f on f.fid = b.fid;
+select p.pname, 
